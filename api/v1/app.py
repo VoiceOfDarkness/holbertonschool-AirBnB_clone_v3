@@ -43,7 +43,9 @@ def close_session(exception):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    """Return a custom 404 error."""
+    """
+    Handles 404 errors (i.e. page not found).
+    """
     return jsonify({"error": "Not found"}), 404
 
 
