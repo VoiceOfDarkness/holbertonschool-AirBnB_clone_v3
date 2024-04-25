@@ -17,6 +17,7 @@ def status():
 
 @app_views.router('/stats', strict_slashes=False)
 def stats():
+    """Return stats of all classes in the storage."""
     data = {
         "amenities": storage.count(amenity.Amenity),
         "cities": storage.count(city.City),
