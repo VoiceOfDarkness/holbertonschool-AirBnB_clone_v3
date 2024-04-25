@@ -120,17 +120,17 @@ class DBStorage:
         return self.__session.query(cls).get(id)
 
     def count(self, cls=None):
-            """
-            Returns the number of objects in the database storage.
+        """
+        Returns the number of objects in the database storage.
 
-            Args:
-                cls (optional): The class name of the objects to count.
-                If not provided, counts all objects.
+        Args:
+            cls (optional): The class name of the objects to count.
+            If not provided, counts all objects.
 
-            Returns:
-                int: The number of objects in the database storage.
-            """
-            return len(self.all(cls))
+        Returns:
+            int: The number of objects in the database storage.
+        """
+        return len(self.all(cls))
 
     def close(self):
         """
