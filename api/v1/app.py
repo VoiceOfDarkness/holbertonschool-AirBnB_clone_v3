@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os
 
 from api.v1.views import app_views
