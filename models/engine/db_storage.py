@@ -106,6 +106,32 @@ class DBStorage:
         Session = scoped_session(session_factory)
         self.__session = Session()
 
+    def get(self, cls, id):
+        """
+        Retrieves an object from the database.
+
+        Args:
+            cls: The class of the object to retrieve.
+            id: The id of the object to retrieve.
+
+        Returns:
+            The object if found, None otherwise.
+        """
+        return self.__session.query(cls).get(id)
+
+    def count(self, cls=None):
+            """
+            Returns the number of objects in the database storage.
+
+            Args:
+                cls (optional): The class name of the objects to count.
+                If not provided, counts all objects.
+
+            Returns:
+                int: The number of objects in the database storage.
+            """
+            return len(self.all(cls))
+
     def close(self):
         """
         Closes the current database session.
