@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "holbertonschool-airbnb-clone-v2"
+version = "0.1.0"
+description = "Holberton HBNB project version 2"
+authors = ["Abilhasan Samadov <abil.samedov2016@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.0.3"
+sqlalchemy = "^2.0.29"
+mysqlclient = "^2.2.4"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
