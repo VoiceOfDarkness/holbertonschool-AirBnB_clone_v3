@@ -56,4 +56,4 @@ def update_state():
 
     storage.save()
 
-    return jsonify(data), 200
+    return jsonify(data), 201
