@@ -40,25 +40,20 @@ def delete_state(state_id: str):
     return jsonify({}), 200
 
 
-@app_views.route("/states/<state_id>", methods=["POST"],
+@app_views.route("/states", methods=["POST"],
                  strict_slashes=False)
-def update_state(state_id: str):
+def update_state():
     """Update a state"""
-    state = storage.get(State, state_id)
-    if state is None:
-        return jsonify({"error": "Not found"}), 404
 
     if request.is_json:
         data: dict = request.get_json()
-        try:
-            data = json.loads(data)
-        except ValueError:
-            return jsonify({"error": "Not a JSON"}), 400
+    else:
+        return jsonify({"error": "Not a JSON"}), 400
 
     for key, value in data.items():
         if key not in ["id", "created_at", "updated_at"]:
-            setattr(state, key, value)
+            setattr(State, key, value)
 
     storage.save()
 
-    return jsonify(state.to_dict()), 200
+    return jsonify(data), 200
