@@ -1,3 +1,6 @@
+"""
+This module initializes the blueprint object app_views
+"""
 from flask.blueprints import Blueprint
 
 app_views = Blueprint('app_views', __name__, url_prefix='/api/v1')
