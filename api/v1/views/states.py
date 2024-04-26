@@ -53,12 +53,11 @@ def add_state():
     if data.get("name") is None:
         return jsonify({"error": "Missing name"}), 400
 
-    for key, value in data.items():
-        setattr(State, key, value)
+    state = State(**data)
 
-    storage.save()
+    state.save()
 
-    return jsonify(data), 201
+    return jsonify(state.to_dict()), 201
 
 
 @app_views.route("/states/<state_id>", methods=["PUT"], strict_slashes=False)
