@@ -13,7 +13,6 @@ Variables:
     HOST: The host IP address for the app to run on.
     PORT: The port number for the app to run on.
 """
-
 import os
 
 from flask import Flask

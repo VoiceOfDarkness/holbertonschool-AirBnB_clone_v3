@@ -18,7 +18,7 @@ def status():
     return jsonify({"status": "OK"}), 200
 
 
-@app_views.router('/stats', strict_slashes=False)
+@app_views.route('/stats', strict_slashes=False)
 def stats():
     """Return stats of all classes in the storage."""
     data = {
