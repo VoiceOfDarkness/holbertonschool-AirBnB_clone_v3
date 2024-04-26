@@ -12,21 +12,22 @@ from models.city import City
 
 
 @app_views.route("/states/<state_id>/cities", strict_slashes=False)
-def state(state_id: str):
+def cities(state_id: str):
     """Return a cities of the state"""
     state = storage.get(State, state_id)
     if state is None:
         return jsonify({"error": "Not found"}), 404
 
-    cities = []
-    for city in state.cities:
-        cities.append(city.to_dict())
+    cities = state.cities
+    final_cities = []
+    for city in cities:
+        final_cities.append(city.to_dict())
 
-    return jsonify(cities), 200
+    return jsonify(final_cities), 200
 
 
 @app_views.route("/cities/<city_id>", strict_slashes=False)
-def states(city_id: str):
+def city(city_id: str):
     """Return a city by id"""
     city = storage.get(City, city_id)
 
@@ -38,7 +39,7 @@ def states(city_id: str):
 
 @app_views.route("/cities/<city_id>", methods=["DELETE"],
                  strict_slashes=False)
-def delete_state(city_id: str):
+def delete_city(city_id: str):
     """Delete a city"""
     city = storage.get(City, city_id)
     if city is None:
@@ -50,7 +51,7 @@ def delete_state(city_id: str):
 
 @app_views.route("/states/<state_id>/cities", methods=["POST"],
                  strict_slashes=False)
-def add_state(state_id: str):
+def add_city(state_id: str):
     """Add a City"""
 
     if not request.is_json:
@@ -75,7 +76,7 @@ def add_state(state_id: str):
 
 
 @app_views.route("/cities/<city_id>", methods=["PUT"], strict_slashes=False)
-def update_state(city_id: str):
+def update_city(city_id: str):
     """Update a city"""
 
     city = storage.get(City, city_id)
