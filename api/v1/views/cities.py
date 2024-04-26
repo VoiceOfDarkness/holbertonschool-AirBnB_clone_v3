@@ -76,7 +76,7 @@ def add_state(state_id: str):
 
 @app_views.route("/cities/<city_id>", methods=["PUT"], strict_slashes=False)
 def update_state(city_id: str):
-    """Update a state"""
+    """Update a city"""
 
     city = storage.get(City, city_id)
     if city is None:
