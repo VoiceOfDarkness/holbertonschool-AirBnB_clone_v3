@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 This module initializes the blueprint object app_views
 """
