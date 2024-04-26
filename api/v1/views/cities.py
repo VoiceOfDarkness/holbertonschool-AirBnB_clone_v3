@@ -33,7 +33,7 @@ def city(city_id: str):
     if city is None:
         return jsonify({"error": "Not found"}), 404
 
-    return jsonify([city.to_dict()]), 200
+    return jsonify(city.to_dict()), 200
 
 
 @app_views.route("/cities/<city_id>", methods=["DELETE"],
