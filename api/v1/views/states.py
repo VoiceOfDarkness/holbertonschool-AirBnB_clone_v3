@@ -50,7 +50,7 @@ def add_state():
 
     data: dict = request.get_json()
 
-    if data.get("name"):
+    if data.get("name") is None:
         return jsonify({"error": "Missing name"}), 400
 
     for key, value in data.items():
