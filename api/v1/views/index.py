@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-This module contains the routes and views for the index of the API.
-"""
+"""Index module"""
 from flask import jsonify
 
 from api.v1.views import app_views
