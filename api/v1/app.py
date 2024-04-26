@@ -18,11 +18,13 @@ import os
 
 from flask import Flask
 from flask import jsonify
+from flask_cors import CORS  # type: ignore
 
 from api.v1.views import app_views
 from models import storage
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/v1/*": {"origins": "0.0.0.0"}})
 
 HOST = os.getenv("HBNB_API_HOST", default="0.0.0.0")
 PORT = os.getenv("HBNB_API_PORT", default=5000)

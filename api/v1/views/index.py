@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 This module contains the routes and views for the index of the API.
 """
