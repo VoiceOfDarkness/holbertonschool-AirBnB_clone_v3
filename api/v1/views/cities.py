@@ -18,12 +18,11 @@ def cities(state_id: str):
     if state is None:
         return jsonify({"error": "Not found"}), 404
 
-    cities = state.cities
-    final_cities = []
-    for city in cities:
-        final_cities.append(city.to_dict())
+    cities = []
+    for city in state.cities:
+        cities.append(city.to_dict())
 
-    return jsonify(final_cities), 200
+    return jsonify(cities), 200
 
 
 @app_views.route("/cities/<city_id>", strict_slashes=False)
