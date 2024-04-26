@@ -69,10 +69,10 @@ def update_state(state_id: str):
     if state is None:
         return jsonify({"error": "Not found"}), 404
 
-    if request.is_json:
-        data: dict = request.get_json()
-    else:
+    if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400
+
+    data: dict = request.get_json()
 
     for key, value in data.items():
         if key not in ["id", "created_at", "updated_at"]:
