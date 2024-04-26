@@ -64,4 +64,3 @@ def update_state(state_id: int):
     storage.save()
 
     return jsonify(state.to_d), 200
- state"""
