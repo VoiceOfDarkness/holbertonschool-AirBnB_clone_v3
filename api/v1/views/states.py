@@ -50,6 +50,9 @@ def update_state():
     else:
         return jsonify({"error": "Not a JSON"}), 400
 
+    if request.json.get("name") is None:
+        return jsonify({"error": "Missing name"}), 400
+
     for key, value in data.items():
         if key not in ["id", "created_at", "updated_at"]:
             setattr(State, key, value)
