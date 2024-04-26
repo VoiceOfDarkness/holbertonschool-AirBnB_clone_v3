@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-endpoint for states
+endpoint for amenities
 """
 from flask import jsonify
 from flask import request
