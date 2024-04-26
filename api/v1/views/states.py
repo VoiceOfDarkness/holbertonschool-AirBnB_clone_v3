@@ -2,8 +2,6 @@
 """
 endpoint for states
 """
-import json
-
 from flask import jsonify
 from flask import request
 
