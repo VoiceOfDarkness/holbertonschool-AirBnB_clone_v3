@@ -35,7 +35,7 @@ class Place(BaseModel, Base):
 
     __tablename__ = "places"
 
-    if os.getenv("HBNB_TYPE_STORAGE", None) != "db":
+    if os.getenv("HBNB_TYPE_STORAGE", None) == "db":
 
         city_id: Mapped[str] = mapped_column(
             String(60), ForeignKey("cities.id"), nullable=False
