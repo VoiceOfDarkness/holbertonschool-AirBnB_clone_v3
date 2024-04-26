@@ -15,11 +15,10 @@ class State(BaseModel, Base):
     __tablename__ = "states"
 
     name: Mapped[str] = mapped_column(String(128), nullable=False)
-    cities: Mapped[list["City"]] = relationship("City", backref="state",
-                                                cascade="delete")
-
     if os.getenv("HBNB_TYPE_STORAGE") != "db":
-
+        cities: Mapped[list] = relationship("City", backref="state",
+                                            cascade="delete")
+    else:
         @property
         def cities(self):
             """Get a list of all related City objects."""
