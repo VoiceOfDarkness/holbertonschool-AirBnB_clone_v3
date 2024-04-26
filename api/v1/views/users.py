@@ -50,7 +50,7 @@ def add_user():
 
     if data.get("email") is None:
         return jsonify({"error": "Missing email"}), 400
-    
+
     if data.get("password") is None:
         return jsonify({"error": "Missing password"}), 400
 
