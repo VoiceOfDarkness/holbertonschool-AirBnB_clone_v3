@@ -160,7 +160,11 @@ class TestDBStorage(unittest.TestCase):
     def test_count(self):
         """Test the count method"""
         count = self.storage.count()
+        state = State(name="Ganja")
+        state.save()
+        state_count = self.storage.count()
         self.assertEqual(type(count), int)
+        self.assertEqual(count + 1, state_count)
 
 
 if __name__ == "__main__":
