@@ -101,3 +101,34 @@ def update_place(place_id: str):
     place.save()
 
     return jsonify(place.to_dict()), 200
+
+
+@app_views.route("/places_search", methods=["POST"], strict_slashes=False)
+def place_search():
+
+    if not request.is_json:
+        return jsonify({"error": "Not a JSON"}), 400
+
+    data: dict = request.get_json()
+
+    if not data or all(not val for val in data.values()):
+        all_places = storage.all('Place').values()
+        return jsonify([place.to_dict() for place in all_places]), 200
+
+    places = []
+
+    if data.get("states"):
+        states = data["states"]
+        places += [place for place in all_places
+                   if place.city.state_id in states]
+
+    if data.get("cities"):
+        cities = data["cities"]
+        places += [place for place in all_places if place.city_id in cities]
+
+    if data.get("amenities"):
+        amenities = data["amenities"]
+        places = [place for place in places if all(amenity in place.amenities
+                                                   for amenity in amenities)]
+
+    return jsonify([place.to_dict() for place in places]), 200
