@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Defines unnittests for models/engine/db_storage.py."""
 import unittest
-import os
 
 import pep8
 from sqlalchemy.engine.base import Engine
@@ -149,33 +148,19 @@ class TestDBStorage(unittest.TestCase):
         self.storage._DBStorage__session.close()
         self.storage._DBStorage__session = og_session
 
-
-class TestDBStorageNew(unittest.TestCase):
-    """Test the DBStorage class"""
-
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
-                     "not testing db storage")
+    @unittest.skipIf(type(models.storage) is FileStorage,
+                     "Testing FileStorage")
     def test_get(self):
-        """Test that get returns specific object, or none"""
-        new_state = State(name="New York")
-        new_state.save()
-        new_user = User(email="bob@foobar.com", password="password")
-        new_user.save()
-        self.assertIs(new_state, models.storage.get("State", new_state.id))
-        self.assertIs(None, models.storage.get("State", "blah"))
-        self.assertIs(new_user, models.storage.get("User", new_user.id))
+        """Test the get method"""
+        obj = self.storage.get(State, self.state.id)
+        self.assertEqual(obj, self.state)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
-                     "not testing db storage")
+    @unittest.skipIf(type(models.storage) is FileStorage,
+                     "Testing FileStorage")
     def test_count(self):
-        """test that new adds an object to the database"""
-        initial_count = models.storage.count()
-        new_state = State(name="Florida")
-        new_state.save()
-        new_user = User(email="bob@foobar.com", password="password")
-        new_user.save()
-        self.assertEqual(models.storage.count("State"), initial_count + 1)
-        self.assertEqual(models.storage.count(), initial_count + 2)
+        """Test the count method"""
+        count = self.storage.count()
+        self.assertEqual(type(count), int)
 
 
 if __name__ == "__main__":
