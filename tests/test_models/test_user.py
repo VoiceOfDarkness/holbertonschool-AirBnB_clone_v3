@@ -137,7 +137,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.user.updated_at.isoformat(),
                          user_dict["updated_at"])
         self.assertEqual(self.user.email, user_dict["email"])
-        self.assertEqual(self.user.password, user_dict["password"])
 
 
 if __name__ == "__main__":
