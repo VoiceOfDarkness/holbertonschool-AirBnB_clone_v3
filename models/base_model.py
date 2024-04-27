@@ -52,7 +52,7 @@ class BaseModel:
         storage.new(self)
         storage.save()
 
-    def to_dict(self):
+    def to_dict(self, save_to_disk=False):
         """Convert instance into dict format.
 
         Returns:
@@ -63,6 +63,9 @@ class BaseModel:
         dictionary["created_at"] = self.created_at.isoformat()
         dictionary["updated_at"] = self.updated_at.isoformat()
         dictionary.pop("_sa_instance_state", None)
+        if not save_to_disk:
+            dictionary.pop("password", None)
+
         return dictionary
 
     def delete(self):
