@@ -1,5 +1,5 @@
 <p align="center">
- <h1 align="center"> AirBnB clone - The console </h1>
+ <h1 align="center"> AirBnB clone - RESTful API </h1>
  <a href="" rel="noopener">
  <img src="https://github.com/bdbaraban/AirBnB_clone_v2/raw/master/assets/hbnb_logo.png">
 
@@ -11,7 +11,7 @@
 
 ---
 
-<p align="center"> This project aims to develop a command-line interpreter for managing objects in an AirBnB-like application. The interpreter facilitates the creation, storage, retrieval, updating, and deletion of various objects such as users, states, cities, and places.
+<p align="center"> This project aims to develop a command-line interpreter and a RESTful API for managing objects in an AirBnB-like application. The interpreter and API facilitate the creation, storage, retrieval, updating, and deletion of various objects such as users, states, cities, and places.
     <br> 
 </p>
 
@@ -25,25 +25,24 @@
 
 ## About <a name = "about"></a> 🧐
 
-This project presents a command-line interpreter designed for managing objects within an AirBnB-like application. Users can efficiently create, store, retrieve, update, and delete entities like users, states, cities, and places directly from their terminal.
+This project presents a command-line interpreter and a RESTful API designed for managing objects within an AirBnB-like application. Users can efficiently create, store, retrieve, update, and delete entities like users, states, cities, and places directly from their terminal or through HTTP requests using the API.
+
 The core of the project is a robust object-oriented structure featuring a parent class (BaseModel) that handles essential functionalities such as initialization and serialization. A streamlined serialization process allows the interpreter to seamlessly convert object instances to dictionaries, JSON strings, and ultimately to files for efficient data storage and retrieval.
 
-![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone_v2/blob/master/assets/image.png)
-
-### New Feature: DBStorage
+### New Feature: DBStorage and RESTful API with Flask
 
 This updated version introduces DBStorage, a new storage mechanism that leverages a MySQL database for persisting application data. By setting the environment variable `HBNB_TYPE_STORAGE=db`, the application utilizes a `DBStorage` instance to interact with the database. This instance connects to the MySQL server using credentials and database information specified in environment variables (`HBNB_MYSQL_USER`, `HBNB_MYSQL_PWD`, `HBNB_MYSQL_HOST`, and `HBNB_MYSQL_DB`).
-With DBStorage, any changes made to objects through the command-line interface are automatically reflected in the MySQL database, ensuring data persistence and consistency. SQLAlchemy facilitates connections and queries to the database.
-Note: Before using DBStorage, ensure the relevant databases (`hbnb_dev_db` and `hbnb_test_db`) are created and configured on the MySQL server. The provided scripts (`setup_mysql_dev.sql` and `setup_mysql_test.sql`) can be used for this purpose.
-This project serves as a crucial foundation for building a fully functional AirBnB clone web application. By establishing a solid groundwork with object classes, serialization mechanisms, and now database integration through DBStorage, future development phases like HTML/CSS templating, API development, and front-end implementation can be seamlessly built upon this base. Comprehensive unit tests continue to ensure the reliability and robustness of the application throughout its development lifecycle.
-Ultimately, this project delivers a powerful and user-friendly tool for managing AirBnB-like data, paving the way for a smooth and immersive web experience for both hosts and guests.
+
+Additionally, this version integrates a RESTful API built with Flask, allowing external applications and services to interact with the AirBnB clone application programmatically via HTTP methods. The API provides endpoints for all CRUD operations, making it flexible and easy to integrate with front-end frameworks and other tools.
 
 ## Getting Started <a name = "getting_started"></a> 🏁
 
-1.Clone the repo
+1. Clone the repo
+
+
 
 ```
-$ git clone https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone.git
+$ git clone https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone_v3.git
 
 ```
 
@@ -55,11 +54,21 @@ $ ./console.py
 
 ## Requirements 📃
 
-No requirements needed on this stage of project :)
+- Python 3.7+
+- Flask
+- MySQL
+- SQLAlchemy
+
+or run 
+```
+$ pip install -r requiements.txt
+```
 
 ## Running the tests <a name = "tests"></a> 🔧
 
 Unittests for the HolbertonBnB project are defined in the tests folder. To run the entire test suite simultaneously, execute the following command:
+
+
 
 ```
 $ python3 unittest -m discover tests
@@ -149,8 +158,8 @@ The HolbertonBnB console supports the following commands:
 
 ## Authors <a name = "authors"></a> ✍️
 
-- [@VoiceOfDarkness](https://github.com/VoiceOfDarkness) - Initial Work
-- [lunarinaa](https://github.com/lunarinaa) - Support
+- [@VoiceOfDarkness](https://github.com/VoiceOfDarkness)
+- [@heydarov93](https://github.com/heydarov93)
 
 ### Special Credits:
 
