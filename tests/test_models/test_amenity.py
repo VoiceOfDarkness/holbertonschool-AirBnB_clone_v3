@@ -4,9 +4,6 @@ import os
 import unittest
 from datetime import datetime
 
-import MySQLdb
-import pep8
-from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import sessionmaker
 
 import models

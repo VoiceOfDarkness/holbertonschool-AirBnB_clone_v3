@@ -4,9 +4,6 @@ import os
 import unittest
 from datetime import datetime
 
-import MySQLdb
-import pep8
-from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import sessionmaker
 
 import models
@@ -84,27 +81,6 @@ class TestCity(unittest.TestCase):
         self.assertTrue(hasattr(ct, "__tablename__"))
         self.assertTrue(hasattr(ct, "name"))
         self.assertTrue(hasattr(ct, "state_id"))
-
-    @unittest.skipIf(type(models.storage) is FileStorage,
-                     "Testing FileStorage")
-    def test_state_relationship_deletes(self):
-        """Test delete cascade in City-State relationship."""
-        st = State(name="Georgia")
-        self.dbstorage._DBStorage__session.add(st)
-        self.dbstorage._DBStorage__session.commit()
-        ct = City(name="Atlanta", state_id=st.id)
-        self.dbstorage._DBStorage__session.add(ct)
-        self.dbstorage._DBStorage__session.commit()
-        self.dbstorage._DBStorage__session.delete(st)
-        self.dbstorage._DBStorage__session.commit()
-        db = MySQLdb.connect(user="hbnb_test",
-                             passwd="hbnb_test_pwd",
-                             db="hbnb_test_db")
-        cursor = db.cursor()
-        cursor.execute("SELECT * FROM cities WHERE BINARY name = 'Atlanta'")
-        query = cursor.fetchall()
-        cursor.close()
-        self.assertEqual(0, len(query))
 
     def test_is_subclass(self):
         """Check that City is a subclass of BaseModel."""

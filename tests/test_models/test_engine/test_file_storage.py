@@ -3,7 +3,6 @@
 import json
 import os
 import unittest
-from datetime import datetime
 
 import pep8
 
