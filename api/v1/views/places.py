@@ -2,13 +2,12 @@
 """
 endpoint for places
 """
-from flask import jsonify
-from flask import request
+from flask import jsonify, request, abort
 
 from api.v1.views import app_views
 from models import storage
-from models.place import Place
 from models.city import City
+from models.place import Place
 from models.user import User
 
 
@@ -17,7 +16,7 @@ def places(city_id: str):
     """Return a places of the city"""
     city = storage.get(City, city_id)
     if city is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     places = []
     for place in city.places:
@@ -32,7 +31,7 @@ def place(place_id: str):
     place = storage.get(Place, place_id)
 
     if place is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     return jsonify(place.to_dict()), 200
 
@@ -43,7 +42,7 @@ def delete_place(place_id: str):
     """Delete a place"""
     place = storage.get(Place, place_id)
     if place is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     storage.delete(place)
     storage.save()
     return jsonify({}), 200
@@ -59,7 +58,7 @@ def add_place(city_id: str):
 
     city = storage.get(City, city_id)
     if city is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     data: dict = request.get_json()
 
@@ -68,7 +67,7 @@ def add_place(city_id: str):
 
     user = storage.get(User, data["user_id"])
     if user is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     if data.get("name") is None:
         return jsonify({"error": "Missing name"}), 400
@@ -88,7 +87,7 @@ def update_place(place_id: str):
 
     place = storage.get(Place, place_id)
     if place is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400

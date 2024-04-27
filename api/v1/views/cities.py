@@ -2,13 +2,12 @@
 """
 endpoint for states
 """
-from flask import jsonify
-from flask import request
+from flask import jsonify, request, abort
 
 from api.v1.views import app_views
 from models import storage
-from models.state import State
 from models.city import City
+from models.state import State
 
 
 @app_views.route("/states/<state_id>/cities", strict_slashes=False)
@@ -16,7 +15,7 @@ def cities(state_id: str):
     """Return a cities of the state"""
     state = storage.get(State, state_id)
     if state is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     cities = []
     for city in state.cities:
@@ -31,7 +30,7 @@ def city(city_id: str):
     city = storage.get(City, city_id)
 
     if city is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     return jsonify(city.to_dict()), 200
 
@@ -42,7 +41,7 @@ def delete_city(city_id: str):
     """Delete a city"""
     city = storage.get(City, city_id)
     if city is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     storage.delete(city)
     storage.save()
     return jsonify({}), 200
@@ -58,7 +57,7 @@ def add_city(state_id: str):
 
     state = storage.get(State, state_id)
     if state is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     data: dict = request.get_json()
 
@@ -80,7 +79,7 @@ def update_city(city_id: str):
 
     city = storage.get(City, city_id)
     if city is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400

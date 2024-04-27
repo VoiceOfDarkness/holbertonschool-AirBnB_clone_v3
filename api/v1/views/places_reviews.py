@@ -2,8 +2,7 @@
 """
 endpoint for reviews of the places
 """
-from flask import jsonify
-from flask import request
+from flask import jsonify, request, abort
 
 from api.v1.views import app_views
 from models import storage
@@ -17,7 +16,7 @@ def reviews(place_id: str):
     """Return a reviews of the place"""
     place = storage.get(Place, place_id)
     if place is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     reviews = []
     for review in place.reviews:
@@ -32,7 +31,7 @@ def review(review_id: str):
     review = storage.get(Review, review_id)
 
     if review is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     return jsonify(review.to_dict()), 200
 
@@ -43,7 +42,7 @@ def delete_review(review_id: str):
     """Delete a review"""
     review = storage.get(Review, review_id)
     if review is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     storage.delete(review)
     storage.save()
     return jsonify({}), 200
@@ -59,7 +58,7 @@ def add_review(place_id: str):
 
     place = storage.get(Place, place_id)
     if place is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     data: dict = request.get_json()
 
@@ -68,7 +67,7 @@ def add_review(place_id: str):
 
     user = storage.get(User, data["user_id"])
     if user is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     if data.get("text") is None:
         return jsonify({"error": "Missing text"}), 400
@@ -88,7 +87,7 @@ def update_review(review_id: str):
 
     reviews = storage.get(Review, review_id)
     if reviews is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400

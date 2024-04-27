@@ -2,8 +2,7 @@
 """
 endpoint for amenities
 """
-from flask import jsonify
-from flask import request
+from flask import jsonify, request, abort
 
 from api.v1.views import app_views
 from models import storage
@@ -22,7 +21,7 @@ def amenity(amenity_id: str):
     """Return a amenity"""
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     return jsonify(amenity.to_dict()), 200
 
 
@@ -32,7 +31,7 @@ def delete_amenity(amenity_id: str):
     """Delete a amenity"""
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     storage.delete(amenity)
     storage.save()
     return jsonify({}), 200
@@ -65,7 +64,7 @@ def update_amenity(amenity_id: str):
 
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400

@@ -2,8 +2,7 @@
 """
 endpoint for users
 """
-from flask import jsonify
-from flask import request
+from flask import jsonify, request, abort
 
 from api.v1.views import app_views
 from models import storage
@@ -22,7 +21,7 @@ def user(user_id: str):
     """Return a user"""
     user = storage.get(User, user_id)
     if user is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     return jsonify(user.to_dict()), 200
 
 
@@ -32,7 +31,7 @@ def delete_user(user_id: str):
     """Delete a user"""
     user = storage.get(User, user_id)
     if user is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     storage.delete(user)
     storage.save()
     return jsonify({}), 200
@@ -67,7 +66,7 @@ def update_user(user_id: str):
 
     user = storage.get(User, user_id)
     if user is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400

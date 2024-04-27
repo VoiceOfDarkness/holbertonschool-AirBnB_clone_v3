@@ -2,8 +2,7 @@
 """
 endpoint for states
 """
-from flask import jsonify
-from flask import request
+from flask import jsonify, request, abort
 
 from api.v1.views import app_views
 from models import storage
@@ -22,7 +21,7 @@ def state(state_id: str):
     """Return a state"""
     state = storage.get(State, state_id)
     if state is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     return jsonify(state.to_dict()), 200
 
 
@@ -32,7 +31,7 @@ def delete_state(state_id: str):
     """Delete a state"""
     state = storage.get(State, state_id)
     if state is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     storage.delete(state)
     storage.save()
     return jsonify({}), 200
@@ -64,7 +63,7 @@ def update_state(state_id: str):
 
     state = storage.get(State, state_id)
     if state is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
 
     if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400
