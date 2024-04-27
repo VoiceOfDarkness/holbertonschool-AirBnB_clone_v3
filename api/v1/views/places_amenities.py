@@ -25,7 +25,7 @@ def get_amenities(place_id):
 
 @app_views.route("/places/<place_id>/amenities/<amenity_id>",
                  methods=["DELETE"])
-def delete_amenity(place_id, amenity_id):
+def delete_amenity_for_place(place_id, amenity_id):
     place = storage.get(Place, place_id)
     amenity = storage.get(Amenity, amenity_id)
     if place is None or amenity is None:
