@@ -161,10 +161,15 @@ class TestDBStorage(unittest.TestCase):
         """Test the count method"""
         count = self.storage.count()
         state = State(name="Ganja")
-        state.save()
+        self.storage._DBStorage__session.add(state)
+        self.storage._DBStorage__session.commit()
         state_count = self.storage.count()
-        self.assertEqual(type(count), int)
-        self.assertEqual(count, state_count)
+        user = User(email="test@gmail.com", password="test")
+        self.storage._DBStorage__session.add(user)
+        self.storage._DBStorage__session.commit()
+
+        self.assertEqual(count + 1, state_count)
+        self.assertEqual(count + 2, self.storage.count())
 
 
 if __name__ == "__main__":
