@@ -9,6 +9,7 @@ from sqlalchemy.orm.session import Session
 
 import models
 
+from models import storage
 from models.base_model import Base
 from models.city import City
 from models.engine.db_storage import DBStorage
@@ -159,12 +160,12 @@ class TestDBStorage(unittest.TestCase):
                      "Testing FileStorage")
     def test_count(self):
         """Test the count method"""
-        count = self.storage.count()
+        count = storage.count()
         state = State(name="Ganja")
         state.save()
-        state_count = self.storage.count()
+        state_count = storage.count()
         self.assertEqual(type(count), int)
-        self.assertEqual(count, state_count)
+        self.assertEqual(count + 1, state_count)
 
 
 if __name__ == "__main__":
